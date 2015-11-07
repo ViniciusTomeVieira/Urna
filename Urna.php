@@ -1,5 +1,3 @@
-# Urna
-Urna de PPW 202 Internet
 
 <!DOCTYPE html>
 <?php 
@@ -12,7 +10,7 @@ echo 'Candidatos: Gilmar = 24<br /> '
 
     
      
-                                      if(($digito === '13') || ($digito === '24') || ($digito === '45')){
+                                      if(($digito === '13')){
                                        
                                         $arquivo= "votosvalidos.txt";
                                         $conteudo=$digito.",";
@@ -24,32 +22,63 @@ echo 'Candidatos: Gilmar = 24<br /> '
                                          $leitura=fread($abertura,filesize($arquivo));
                                          fclose($abertura);
                                          
+                                      }else if(($digito === '24')){
+                                          $arquivo= "votosvalidos.txt";
+                                          $arquivo2= "qtdgilmar.txt";
+                                        $abertura2=fopen("$arquivo2","r");
+                                          $leitura2=fread($abertura2,filesize($arquivo2));
+                                         fclose($abertura2);
+                                         
+                                         $abertura2=fopen("$arquivo2","w+");
+                                         $contgilmar=$leitura2+1;
+                                          $gravacao2=  fwrite($abertura2, $contgilmar);
+                                         fclose($abertura2);
+                                          
+                                         $conteudo=$digito.",";
+                                        $abertura=fopen("$arquivo","a+");
+                                        $gravacao=fwrite($abertura,$conteudo);
+                                       
+                                         #Reposiciona o ponteiro no início do arquivo
+                                         fseek($abertura,0);
+                                         $leitura=fread($abertura,filesize($arquivo));
+                                         fclose($abertura);
+                                          
+                                      }else if(($digito === '45')){
+                                          $arquivo= "votosvalidos.txt";
+                                        $conteudo=$digito.",";
+                                        $abertura=fopen("$arquivo","a+");
+                                        $gravacao=fwrite($abertura,$conteudo);
+                                       
+                                         #Reposiciona o ponteiro no início do arquivo
+                                         fseek($abertura,0);
+                                         $leitura=fread($abertura,filesize($arquivo));
+                                      
+                                         fclose($abertura);
+                                          
+                                      }
+                                      
+                                         
                                          
     
-                        }else if (($digito === "branco")){
+                        else if (($digito === "branco")){
                            
-                            $contbranco=0;
                             $arquivo= "votosbranco.txt";
-                            
-                                        $conteudo=$contbranco++;
-                                        $abertura=fopen("$arquivo","a+");
-                                        $gravacao=fwrite($abertura,$conteudo);
-                                       ;
-                                         #Reposiciona o ponteiro no início do arquivo
-                                         fseek($abertura,0);
-                                         $leitura=fread($abertura,filesize($arquivo));
-                                            fclose($abertura);
+                                        $abertura=fopen("$arquivo","r");
+                                        $leitura=fread($abertura,filesize($arquivo));
+                                         fclose($abertura);
+                                         $abertura=fopen("$arquivo","w+");
+                                         $contbranco=$leitura+1;
+                                         $gravacao=  fwrite($abertura, $contbranco);
+                                         fclose($abertura);
                                            
                         }else{
-                            $contnulo=0;
                             $arquivo= "votosnulos.txt";
-                                        $conteudo=$contnulo++;
-                                        $abertura=fopen("$arquivo","a+");
-                                        $gravacao=fwrite($abertura,$conteudo);
-                                      
-                                         #Reposiciona o ponteiro no início do arquivo
-                                         fseek($abertura,0);
-                                         $leitura=fread($abertura,filesize($arquivo));
+                                        $abertura=fopen("$arquivo","r");
+                                        $leitura=fread($abertura,filesize($arquivo));
+                                         fclose($abertura);
+                                         $abertura=fopen("$arquivo","w+");
+                                         $contnulo=$leitura+1;
+                                         $gravacao=  fwrite($abertura, $contnulo);
                                          fclose($abertura);
                                         
                         }
@@ -81,7 +110,7 @@ echo 'Candidatos: Gilmar = 24<br /> '
     }
 </style>
 </head>
- <body>
+<body>
   
      <fieldset> 
          
@@ -126,7 +155,9 @@ echo 'Candidatos: Gilmar = 24<br /> '
  
 </table>
 </form>
-     </fieldset>
+     
+       
+    
  </body>
 </html>
 
